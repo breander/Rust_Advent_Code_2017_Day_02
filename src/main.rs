@@ -46,13 +46,8 @@ fn part2(contents: &String){
 
     let mut sum: i32 = 0;
     for row in &rows {
-        //println!("{} ", i);
        let number_string = row.split("\t");
-       //let number_string2 = row.split("\t");
        let numbers: Vec<&str> = number_string.collect();
-       //let numbers2: Vec<&str> = number_string2.collect();
-       //let mut large: i32 = 0;
-       //let mut small: i32 = 99999;
 
        for x in 0..numbers.len(){
             let current: i32 = numbers[x].parse().unwrap();
@@ -78,8 +73,6 @@ fn part2(contents: &String){
                 break;
             }
        } 
-
-       //sum = sum + (large - small);
     }
 
     println!("Part2: {}", sum);
