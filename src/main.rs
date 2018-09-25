@@ -7,62 +7,56 @@ fn main() {
 
     f.read_to_string(&mut contents).expect("Something went wrong!");
 
-    part1(&contents);
-    part2(&contents);
+    let rows: Vec<&str> = contents.split("\n").collect();
+
+    part1(&rows);
+    part2(&rows);
 }
 
-fn part1(contents: &String){
-    let row_string = contents.split("\n");
-    let rows: Vec<&str> = row_string.collect();
-
+fn part1(rows: &Vec<&str>) {
     let mut sum: i32 = 0;
-    for row in &rows {
-        //println!("{} ", i);
-       let number_string = row.split("\t");
-       let numbers: Vec<&str> = number_string.collect();
-       let mut large: i32 = 0;
-       let mut small: i32 = 99999;
+    for row in rows {
+       let numbers: Vec<&str> = row.split("\t").collect();
+       let mut large: i32 = i32::min_value();
+       let mut small: i32 = i32::max_value();
 
-       for num in numbers{
+       for num in numbers {
             let current: i32 = num.parse().unwrap();
-            if current > large{
+
+            if current > large {
                 large = current;
             }
 
-            if current < small{
+            if current < small {
                 small = current;
             }
        } 
 
-       sum = sum + (large - small);
+       sum += large - small;
     }
 
     println!("Part1: {}", sum);
 }
 
-fn part2(contents: &String){
-    let row_string = contents.split("\n");
-    let rows: Vec<&str> = row_string.collect();
-
+fn part2(rows: &Vec<&str>) {
     let mut sum: i32 = 0;
-    for row in &rows {
-       let number_string = row.split("\t");
-       let numbers: Vec<&str> = number_string.collect();
+    for row in rows {
+       let numbers: Vec<&str> = row.split("\t").collect();
 
        for x in 0..numbers.len(){
             let current: i32 = numbers[x].parse().unwrap();
             let mut found: bool = false;
 
             for y in 0..numbers.len() {
-                if x == y{
+                if x == y {
                     continue;
                 }
 
                 let current2: i32 = numbers[y].parse().unwrap();
 
                 if current > current2 {
-                    if current % current2 == 0{
-                        sum = sum + (current / current2);
+                    if current % current2 == 0 {
+                        sum += current / current2;
                         found = true;
                         break;
                     }
